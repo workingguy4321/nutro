@@ -1,0 +1,11 @@
+# Exclude Android APK binaries for now (will be uploaded after verification)
+downloads/
+*.apk
+downloads/*.apk
+
+# Local server and helper scripts
+server.js
+*.bat
+*.zip
+.vercel/
+.DS_Store
