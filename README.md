@@ -15,7 +15,7 @@
 Click the links below to interact directly with the live NUTRO showcase:
 
 - 🚀 **[Open Live on Vercel](https://nutro-eight.vercel.app)** *(Primary High-Performance CDN)*
-- 📄 **[Open on GitHub Pages](https://sushiii22.github.io/nutro/)** *(Official GitHub Mirror)*
+- 📄 **[Open on GitHub Pages](https://workingguy4321.github.io/nutro/)** *(Official GitHub Mirror)*
 
 ---
 
