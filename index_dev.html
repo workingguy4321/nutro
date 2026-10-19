@@ -69,6 +69,11 @@
             <i data-lucide="shield" style="width:14px; height:14px; color:#10B981;"></i> Privacy
           </button>
         </li>
+        <li>
+          <button class="nav-btn" onclick="scrollToHeroVideo(event)" style="display: flex; align-items: center; gap: 6px; color: #38BDF8;">
+            <i data-lucide="play-circle" style="width:14px; height:14px; color:#06B6D4;"></i> Web Intro
+          </button>
+        </li>
       </ul>
 
       <div style="display: flex; align-items: center; gap: 12px;">
@@ -167,7 +172,7 @@
           Experience true dietary sovereignty. Whether you need the ultra-fast <strong>100% Offline Normal Edition</strong> or the multimodal <strong>Gemini Vision NUTRO+ Special Edition</strong>, your health data stays private and free forever.
         </p>
 
-        <div class="reveal delay-3" style="display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 40px;">
+        <div class="reveal delay-3" style="display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 32px;">
           <a href="downloads/NUTRO_Normal.apk" download="NUTRO_Normal.apk" class="btn btn-primary btn-lg">
             <i data-lucide="download" style="width:18px; height:18px;"></i>
             <span>Download Normal Edition (48.8 MB)</span>
@@ -178,9 +183,14 @@
             <span>Discover NUTRO+ AI Edition</span>
             <i data-lucide="arrow-right" style="width:18px; height:18px;"></i>
           </button>
+
+          <button onclick="openWebIntroCinemaModal(event)" class="btn btn-glass btn-lg glow-cyan" style="backdrop-filter: blur(12px); border-color: rgba(6, 182, 212, 0.45); color: #38BDF8;">
+            <i data-lucide="play-circle" style="width:18px; height:18px; color: #38BDF8;"></i>
+            <span>Watch Web Intro (10s)</span>
+          </button>
         </div>
 
-        <div class="reveal delay-4" style="display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; color: var(--text-dim); font-size: 13.5px; font-weight: 600;">
+        <div class="reveal delay-4" style="display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; color: var(--text-dim); font-size: 13.5px; font-weight: 600; margin-bottom: 36px;">
           <div style="display: flex; align-items: center; gap: 6px;">
             <i data-lucide="zap" style="width:16px; height:16px; color:#10B981;"></i> 0ms Offline Latency
           </div>
@@ -192,6 +202,54 @@
           </div>
           <div style="display: flex; align-items: center; gap: 6px;">
             <i data-lucide="check" style="width:16px; height:16px; color:#10B981;"></i> 0 Paywalls &amp; 0 Ads
+          </div>
+        </div>
+
+        <!-- HERO CINEMATIC VIDEO SHOWCASE -->
+        <div id="hero-video" class="hero-video-section reveal delay-4">
+          <div class="video-ambient-glow"></div>
+          <div class="video-showcase-frame">
+            <!-- Showcase Topbar -->
+            <div class="video-frame-header">
+              <div class="video-window-dots">
+                <span class="dot dot-red"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+              </div>
+              <div class="video-frame-title">
+                <i data-lucide="play-circle" style="width: 14px; height: 14px; color: #34D399;"></i>
+                <span>NUTRO Motion Experience • web_intro.mp4</span>
+              </div>
+              <div class="video-frame-badge">
+                <span class="live-pulse-dot"></span> 4K Motion Preview
+              </div>
+            </div>
+            
+            <!-- Video Player Container -->
+            <div class="video-player-wrapper" onclick="toggleHeroVideoPlay(event)" title="Click video to Play / Pause">
+              <video id="heroWebIntroVideo" class="showcase-video-elem" autoplay loop muted playsinline preload="auto">
+                <source src="assets/web_intro.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+              
+              <!-- Video Floating Quick Controls -->
+              <div class="video-controls-overlay" onclick="event.stopPropagation()">
+                <button id="btnVideoPlayPause" class="video-ctrl-btn" onclick="toggleHeroVideoPlay(event)" title="Play / Pause">
+                  <i data-lucide="pause" id="iconPlayPause" style="width: 16px; height: 16px;"></i>
+                  <span id="textPlayPause">Pause</span>
+                </button>
+                
+                <button id="btnVideoSound" class="video-ctrl-btn video-ctrl-sound" onclick="toggleHeroVideoSound(event)" title="Unmute Audio">
+                  <i data-lucide="volume-x" id="iconVideoSound" style="width: 16px; height: 16px;"></i>
+                  <span id="textVideoSound">Unmute Sound</span>
+                </button>
+
+                <button class="video-ctrl-btn" onclick="openWebIntroCinemaModal(event)" title="Watch Fullscreen Cinema Mode">
+                  <i data-lucide="maximize-2" style="width: 16px; height: 16px;"></i>
+                  <span>Cinema Mode</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -1224,6 +1282,19 @@
   <!-- LIGHTBOX MODAL -->
   <div id="lightboxModal" class="lightbox-modal" onclick="closeLightbox()">
     <img id="lightboxImg" class="lightbox-img" src="" alt="Expanded View" onclick="event.stopPropagation()">
+  </div>
+
+  <!-- CINEMA WEB INTRO MODAL -->
+  <div id="webIntroCinemaModal" class="cinema-modal" onclick="closeWebIntroCinemaModal()">
+    <div class="cinema-container" onclick="event.stopPropagation()">
+      <button class="cinema-close-btn" onclick="closeWebIntroCinemaModal()" aria-label="Close Cinema Player">
+        <i data-lucide="x" style="width:20px; height:20px;"></i>
+      </button>
+      <video id="cinemaWebIntroVideo" class="cinema-video-elem" controls playsinline preload="auto">
+        <source src="assets/web_intro.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
   </div>
 
   <!-- TOAST NOTIFICATION CONTAINER -->

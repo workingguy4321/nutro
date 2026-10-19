@@ -672,4 +672,108 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 500);
     }
   };
+
+  // ========================================================
+  // HERO WEB INTRO VIDEO CONTROLLER
+  // ========================================================
+  window.toggleHeroVideoPlay = function(e) {
+    if (e) e.stopPropagation();
+    const vid = document.getElementById('heroWebIntroVideo');
+    const icon = document.getElementById('iconPlayPause');
+    const text = document.getElementById('textPlayPause');
+    if (!vid) return;
+
+    if (vid.paused) {
+      vid.play();
+      if (text) text.textContent = 'Pause';
+      if (icon) icon.setAttribute('data-lucide', 'pause');
+    } else {
+      vid.pause();
+      if (text) text.textContent = 'Play';
+      if (icon) icon.setAttribute('data-lucide', 'play');
+    }
+    if (window.lucide) lucide.createIcons();
+  };
+
+  window.toggleHeroVideoSound = function(e) {
+    if (e) e.stopPropagation();
+    const vid = document.getElementById('heroWebIntroVideo');
+    const icon = document.getElementById('iconVideoSound');
+    const text = document.getElementById('textVideoSound');
+    if (!vid) return;
+
+    if (vid.muted) {
+      vid.muted = false;
+      vid.volume = 1.0;
+      if (text) text.textContent = 'Mute Sound';
+      if (icon) icon.setAttribute('data-lucide', 'volume-2');
+      if (window.showNutroToast) window.showNutroToast('Sound Enabled 🔊', 'volume-2');
+    } else {
+      vid.muted = true;
+      if (text) text.textContent = 'Unmute Sound';
+      if (icon) icon.setAttribute('data-lucide', 'volume-x');
+      if (window.showNutroToast) window.showNutroToast('Sound Muted 🔇', 'volume-x');
+    }
+    if (window.lucide) lucide.createIcons();
+  };
+
+  window.openWebIntroCinemaModal = function(e) {
+    if (e) e.stopPropagation();
+    const modal = document.getElementById('webIntroCinemaModal');
+    const cinemaVid = document.getElementById('cinemaWebIntroVideo');
+    const heroVid = document.getElementById('heroWebIntroVideo');
+
+    if (heroVid && !heroVid.paused) {
+      heroVid.pause();
+    }
+
+    if (modal && cinemaVid) {
+      modal.classList.add('active');
+      cinemaVid.currentTime = 0;
+      cinemaVid.muted = false;
+      cinemaVid.volume = 1.0;
+      const playPromise = cinemaVid.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          cinemaVid.muted = true;
+          cinemaVid.play();
+        });
+      }
+    }
+    if (window.lucide) lucide.createIcons();
+  };
+
+  window.closeWebIntroCinemaModal = function() {
+    const modal = document.getElementById('webIntroCinemaModal');
+    const cinemaVid = document.getElementById('cinemaWebIntroVideo');
+    const heroVid = document.getElementById('heroWebIntroVideo');
+
+    if (cinemaVid) {
+      cinemaVid.pause();
+    }
+    if (modal) {
+      modal.classList.remove('active');
+    }
+    if (heroVid) {
+      heroVid.play();
+    }
+  };
+
+  window.scrollToHeroVideo = function(e) {
+    if (e) e.preventDefault();
+    if (window.switchView) window.switchView('view-home');
+    const sec = document.getElementById('hero-video');
+    if (sec) {
+      sec.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const frame = sec.querySelector('.video-showcase-frame');
+      if (frame) {
+        frame.style.borderColor = '#06B6D4';
+        frame.style.boxShadow = '0 0 50px rgba(6, 182, 212, 0.5)';
+        setTimeout(() => {
+          frame.style.borderColor = '';
+          frame.style.boxShadow = '';
+        }, 1800);
+      }
+    }
+  };
 });
