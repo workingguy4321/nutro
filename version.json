@@ -1,0 +1,18 @@
+{
+  "com.example.nutriai": {
+    "version_code": 1,
+    "version_name": "1.0",
+    "apk_url": "https://nutro-eight.vercel.app/downloads/NUTRO_Plus.apk",
+    "apk_mirror_url": "https://raw.githubusercontent.com/workingguy4321/nutro/main/nutro%20website/downloads/NUTRO_Plus.apk",
+    "release_notes": "✨ Upgraded Sree AI Chat, Weight Tracker Overhaul with BMI Gauge & 7-Day Chart, and Performance Optimizations!",
+    "force_update": false
+  },
+  "com.example.nutriai.normal": {
+    "version_code": 1,
+    "version_name": "1.0",
+    "apk_url": "https://nutro-eight.vercel.app/downloads/NUTRO_Normal.apk",
+    "apk_mirror_url": "https://raw.githubusercontent.com/workingguy4321/nutro/main/nutro%20website/downloads/NUTRO_Normal.apk",
+    "release_notes": "✨ Performance improvements, UI polish, and stability enhancements.",
+    "force_update": false
+  }
+}
