@@ -27,34 +27,60 @@
     <div class="depth-orb depth-orb-3"></div>
   </div>
 
-  <!-- MINIMALIST STICKY NAVBAR -->
+  <!-- SPLIT 3-PIECE LINEAR ISLAND NAVBAR -->
   <header class="navbar">
-    <div class="navbar-inner">
-      <div class="brand-link" onclick="switchView('view-home')">
+    <div class="navbar-islands">
+      <!-- 1. LEFT ISLAND: Brand Pill -->
+      <div class="nav-island nav-island-brand" onclick="switchView('view-home')">
         <img src="assets/app_logo.png" alt="NUTRO" class="brand-logo-img">
         <span class="brand-title">NUTRO<span class="brand-dot">.</span></span>
       </div>
 
-      <ul class="nav-links">
-        <li><button class="nav-btn active" data-view="view-home" onclick="switchView('view-home')">Home</button></li>
-        <li><button class="nav-btn" data-view="view-free-app" onclick="switchView('view-free-app')">Normal <span class="nav-tag nav-tag-green">Offline</span></button></li>
-        <li><button class="nav-btn" data-view="view-pro-app" onclick="switchView('view-pro-app')">NUTRO+ AI <span class="nav-tag nav-tag-blue">Gemini</span></button></li>
-        <li><button class="nav-btn" onclick="scrollToSection('widgets-section')">Widgets</button></li>
-        <li><button class="nav-btn" data-view="view-compare" onclick="switchView('view-compare')">Compare</button></li>
-        <li><button class="nav-btn" data-view="view-privacy" onclick="switchView('view-privacy')">Privacy</button></li>
-      </ul>
+      <!-- 2. CENTER ISLAND: Clean Segmented Navigation -->
+      <nav class="nav-island nav-island-center">
+        <ul class="nav-links">
+          <li><button class="nav-btn active" data-view="view-home" onclick="switchView('view-home')">Home</button></li>
+          <li><button class="nav-btn" data-view="view-free-app" onclick="switchView('view-free-app')">Normal</button></li>
+          <li><button class="nav-btn" data-view="view-pro-app" onclick="switchView('view-pro-app')">NUTRO+ AI</button></li>
+          <li><button class="nav-btn" onclick="scrollToSection('widgets-section')">Widgets</button></li>
+          <li><button class="nav-btn" data-view="view-compare" onclick="switchView('view-compare')">Compare</button></li>
+          <li><button class="nav-btn" data-view="view-privacy" onclick="switchView('view-privacy')">Privacy</button></li>
+        </ul>
+      </nav>
 
-      <div style="display: flex; align-items: center; gap: 10px;">
-        <a href="downloads/NUTRO_Normal.apk" download="NUTRO_Normal.apk" class="btn btn-secondary btn-sm">
-          <i data-lucide="download" style="width:14px; height:14px;"></i>
-          <span>Normal (54.8 MB)</span>
-        </a>
-        <button onclick="triggerAiDownload(event)" class="btn btn-primary btn-sm">
-          <i data-lucide="sparkles" style="width:14px; height:14px; color:#0284C7;"></i>
-          <span>Get NUTRO+</span>
-        </button>
+      <!-- 3. RIGHT ISLAND: Action & Download Dropdown -->
+      <div class="nav-island nav-island-actions">
+        <div class="nav-download-wrapper">
+          <button class="nav-download-btn" onclick="toggleNavDownloadMenu(event)" aria-haspopup="true" aria-expanded="false">
+            <i data-lucide="download" style="width:14px; height:14px;"></i>
+            <span>Download</span>
+            <i data-lucide="chevron-down" style="width:12px; height:12px;"></i>
+          </button>
+
+          <div id="navDownloadMenu" class="nav-dropdown-menu">
+            <a href="downloads/NUTRO_Normal.apk" download="NUTRO_Normal.apk" class="nav-dropdown-item">
+              <div class="nav-drop-icon nav-drop-icon-emerald">
+                <i data-lucide="shield-check" style="width:16px; height:16px;"></i>
+              </div>
+              <div>
+                <div class="nav-drop-title">Normal Edition (54.8 MB)</div>
+                <div class="nav-drop-sub">100% Offline • Zero Latency</div>
+              </div>
+            </a>
+            <button type="button" onclick="triggerAiDownload(event)" class="nav-dropdown-item">
+              <div class="nav-drop-icon nav-drop-icon-cyan">
+                <i data-lucide="sparkles" style="width:16px; height:16px;"></i>
+              </div>
+              <div>
+                <div class="nav-drop-title">NUTRO+ AI (55.1 MB)</div>
+                <div class="nav-drop-sub">Gemini Vision • Sree AI</div>
+              </div>
+            </button>
+          </div>
+        </div>
+
         <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
-          <i data-lucide="menu" style="width:22px; height:22px;"></i>
+          <i data-lucide="menu" style="width:20px; height:20px;"></i>
         </button>
       </div>
     </div>

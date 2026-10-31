@@ -111,6 +111,26 @@ document.addEventListener('DOMContentLoaded', () => {
     if (drawer) drawer.classList.toggle('open');
   };
 
+  // 4b. Nav Download Dropdown Menu Toggle
+  window.toggleNavDownloadMenu = function(e) {
+    if (e && e.stopPropagation) e.stopPropagation();
+    const menu = document.getElementById('navDownloadMenu');
+    if (menu) {
+      menu.classList.toggle('open');
+      const btn = document.querySelector('.nav-download-btn');
+      if (btn) btn.setAttribute('aria-expanded', menu.classList.contains('open') ? 'true' : 'false');
+    }
+  };
+
+  document.addEventListener('click', (e) => {
+    const menu = document.getElementById('navDownloadMenu');
+    if (menu && menu.classList.contains('open') && !e.target.closest('.nav-download-wrapper')) {
+      menu.classList.remove('open');
+      const btn = document.querySelector('.nav-download-btn');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    }
+  });
+
   // 5. Scroll Reveal Intersection Observer (Multi-directional)
   const revealSelector = '.reveal, .reveal-up, .reveal-left, .reveal-right, .reveal-scale';
   const revealObserver = new IntersectionObserver((entries, observer) => {

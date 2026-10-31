@@ -134,51 +134,60 @@ button {
 }
 
 /* ==========================================================================
-   MINIMALIST FLOATING NAVBAR (APPLE / LINEAR STYLE)
+   SPLIT 3-PIECE LINEAR ISLAND NAVBAR (APPLE / LINEAR STYLE)
    ========================================================================== */
 .navbar {
   position: sticky;
-  top: 14px;
+  top: 18px;
   z-index: 100;
-  max-width: 1100px;
+  max-width: 1180px;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 20px;
 }
 
-.navbar-inner {
-  background: var(--bg-glass);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-full);
+.navbar-islands {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 18px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  gap: 12px;
 }
 
-.navbar:hover .navbar-inner {
-  border-color: var(--border-medium);
-}
-
-.brand-link {
+/* Individual Island Capsules */
+.nav-island {
+  background: var(--bg-glass);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   display: flex;
   align-items: center;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s var(--smooth-curve);
+}
+
+.nav-island:hover {
+  border-color: var(--border-medium);
+  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+/* 1. Left Island: Brand */
+.nav-island-brand {
+  padding: 6px 16px;
   gap: 10px;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .brand-logo-img {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
   border: 1px solid var(--border-medium);
   object-fit: cover;
 }
 
 .brand-title {
-  font-size: 19px;
+  font-size: 17px;
   font-weight: 800;
   letter-spacing: -0.03em;
   color: var(--text-primary);
@@ -188,10 +197,15 @@ button {
   color: var(--accent-emerald);
 }
 
+/* 2. Center Island: Segmented Navigation */
+.nav-island-center {
+  padding: 4px 6px;
+}
+
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 2px;
   list-style: none;
 }
 
@@ -199,45 +213,151 @@ button {
   background: transparent;
   border: none;
   color: var(--text-secondary);
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 500;
-  padding: 6px 14px;
+  padding: 7px 15px;
   border-radius: var(--radius-full);
-  transition: all 0.15s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   align-items: center;
   gap: 6px;
+  cursor: pointer;
 }
 
 .nav-btn:hover {
   color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .nav-btn.active {
-  color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.12);
   font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
-.nav-tag {
-  font-size: 10px;
+/* 3. Right Island: Action & Download Dropdown */
+.nav-island-actions {
+  padding: 4px 6px;
+  gap: 6px;
+}
+
+.nav-download-wrapper {
+  position: relative;
+}
+
+.nav-download-btn {
+  background: #FFFFFF;
+  color: #060709;
+  border: 1px solid #FFFFFF;
+  font-size: 13px;
   font-weight: 700;
-  padding: 2px 6px;
-  border-radius: 4px;
-  letter-spacing: 0.02em;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  transition: all 0.25s var(--spring-easing);
+  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.2);
 }
 
-.nav-tag-green {
-  background: var(--accent-emerald-subtle);
-  color: var(--accent-emerald);
-  border: 1px solid rgba(16, 185, 129, 0.25);
+.nav-download-btn:hover {
+  background: #F8FAFC;
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
 }
 
-.nav-tag-blue {
-  background: var(--accent-cyan-subtle);
-  color: var(--accent-cyan);
-  border: 1px solid rgba(56, 189, 248, 0.25);
+.nav-download-btn:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 285px;
+  background: #0C0E14;
+  border: 1px solid var(--border-medium);
+  border-radius: 18px;
+  padding: 8px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9), 0 0 30px rgba(56, 189, 248, 0.08);
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 250;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  animation: dropSlideDown 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.nav-dropdown-menu.open {
+  display: flex;
+}
+
+@keyframes dropSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.nav-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid transparent;
+  color: var(--text-primary);
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.18s ease;
+  text-decoration: none;
+}
+
+.nav-dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: var(--border-subtle);
+  transform: translateX(2px);
+}
+
+.nav-drop-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.nav-drop-icon-emerald {
+  background: rgba(5, 223, 133, 0.15);
+  color: #05DF85;
+}
+
+.nav-drop-icon-cyan {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38BDF8;
+}
+
+.nav-drop-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 2px;
+}
+
+.nav-drop-sub {
+  font-size: 11px;
+  color: var(--text-secondary);
 }
 
 .mobile-toggle {
@@ -246,6 +366,7 @@ button {
   border: none;
   color: var(--text-primary);
   padding: 6px;
+  cursor: pointer;
 }
 
 /* ==========================================================================
