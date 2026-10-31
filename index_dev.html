@@ -20,6 +20,13 @@
 </head>
 <body>
 
+  <!-- DEEP AMBIENT PARALLAX ATMOSPHERE ORBS -->
+  <div class="depth-atmosphere" aria-hidden="true">
+    <div class="depth-orb depth-orb-1"></div>
+    <div class="depth-orb depth-orb-2"></div>
+    <div class="depth-orb depth-orb-3"></div>
+  </div>
+
   <!-- MINIMALIST STICKY NAVBAR -->
   <header class="navbar">
     <div class="navbar-inner">
@@ -163,7 +170,7 @@
 
         <div class="bento-grid">
           <!-- CARD 1: NORMAL EDITION -->
-          <article class="bento-card bento-span-6">
+          <article class="bento-card bento-span-6 border-beam-card">
             <div class="bento-badge-row">
               <span class="bento-badge bento-badge-emerald"><span class="pulse-dot pulse-dot-emerald"></span>100% Offline</span>
               <span style="font-size: 12px; color: var(--text-tertiary);">v2.1.0 • Android 14+</span>
@@ -195,7 +202,7 @@
           </article>
 
           <!-- CARD 2: PLUS EDITION -->
-          <article class="bento-card bento-span-6">
+          <article class="bento-card bento-span-6 border-beam-card">
             <div class="bento-badge-row">
               <span class="bento-badge bento-badge-cyan"><span class="pulse-dot pulse-dot-cyan"></span>Gemini Vision &amp; Sree AI</span>
               <span style="font-size: 12px; color: var(--text-tertiary);">v2.1.0 • Flagship</span>
@@ -251,29 +258,35 @@
 
             <div class="demo-card-frame" style="position: relative; overflow: hidden;">
               <div class="scanner-laser"></div>
-              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  <span id="demoMealEmoji" style="font-size: 26px;">🥗</span>
-                  <div>
-                    <h4 id="demoMealName" style="font-size: 15px; font-weight: 700; color: #FFF;">Wild Salmon Quinoa Bowl</h4>
-                    <div id="demoMealGrams" style="font-size: 11px; color: var(--text-tertiary);">Estimated: 380g • Confidence 98.4%</div>
+              <div class="scanner-depth-grid"></div>
+              <div class="scanner-depth-ring"></div>
+              <div class="scanner-depth-ring"></div>
+              <div class="scanner-depth-ring"></div>
+              <div style="position: relative; z-index: 2;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span id="demoMealEmoji" style="font-size: 26px;">🥗</span>
+                    <div>
+                      <h4 id="demoMealName" style="font-size: 15px; font-weight: 700; color: #FFF;">Wild Salmon Quinoa Bowl</h4>
+                      <div id="demoMealGrams" style="font-size: 11px; color: var(--text-tertiary);">Estimated: 380g • Confidence 98.4%</div>
+                    </div>
                   </div>
+                  <div id="demoCal" style="font-size: 18px; font-weight: 800; color: var(--accent-amber);">620 kcal</div>
                 </div>
-                <div id="demoCal" style="font-size: 18px; font-weight: 800; color: var(--accent-amber);">620 kcal</div>
-              </div>
 
-              <!-- Macro meters -->
-              <div class="meter-row">
-                <div class="meter-header"><span>Protein</span><strong id="demoProtein" style="color:var(--accent-emerald);">48g (31%)</strong></div>
-                <div class="meter-track"><div id="barProtein" class="meter-fill" style="width: 80%; background: var(--accent-emerald);"></div></div>
-              </div>
-              <div class="meter-row">
-                <div class="meter-header"><span>Carbohydrates</span><strong id="demoCarb" style="color:var(--accent-cyan);">42g (27%)</strong></div>
-                <div class="meter-track"><div id="barCarb" class="meter-fill" style="width: 55%; background: var(--accent-cyan);"></div></div>
-              </div>
-              <div class="meter-row">
-                <div class="meter-header"><span>Healthy Fats</span><strong id="demoFat" style="color:#F43F5E;">24g (42%)</strong></div>
-                <div class="meter-track"><div id="barFat" class="meter-fill" style="width: 45%; background: #F43F5E;"></div></div>
+                <!-- Macro meters -->
+                <div class="meter-row">
+                  <div class="meter-header"><span>Protein</span><strong id="demoProtein" style="color:var(--accent-emerald);">48g (31%)</strong></div>
+                  <div class="meter-track"><div id="barProtein" class="meter-fill" style="width: 80%; background: var(--accent-emerald);"></div></div>
+                </div>
+                <div class="meter-row">
+                  <div class="meter-header"><span>Carbohydrates</span><strong id="demoCarb" style="color:var(--accent-cyan);">42g (27%)</strong></div>
+                  <div class="meter-track"><div id="barCarb" class="meter-fill" style="width: 55%; background: var(--accent-cyan);"></div></div>
+                </div>
+                <div class="meter-row">
+                  <div class="meter-header"><span>Healthy Fats</span><strong id="demoFat" style="color:#F43F5E;">24g (42%)</strong></div>
+                  <div class="meter-track"><div id="barFat" class="meter-fill" style="width: 45%; background: #F43F5E;"></div></div>
+                </div>
               </div>
             </div>
           </div>

@@ -1067,6 +1067,34 @@ document.addEventListener('DOMContentLoaded', () => {
     input.value = '';
   };
 
+  // 21. INTERACTIVE 3D PERSPECTIVE TILT & SPECULAR SPOTLIGHT
+  function initCard3DTilt() {
+    const cards = document.querySelectorAll('.bento-card, .hero-device-frame, .step-card');
+    if (!cards.length) return;
+
+    cards.forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -3.5;
+        const rotateY = ((x - centerX) / centerX) * 3.5;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+  }
+  setTimeout(initCard3DTilt, 150);
+
   // Sync aria-invalid with CSS :user-invalid state per modern-web-guidance
   const syncAria = (el) => {
     if (el && el.matches) {
