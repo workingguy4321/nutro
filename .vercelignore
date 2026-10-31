@@ -1,11 +1,8 @@
-# Exclude Android APK binaries until user verifies and decides to upload
-downloads/
-*.apk
-downloads/*.apk
-
-# Exclude local runner scripts and logs
+# Exclude local runner scripts, tests, and dependencies
 server.js
+test_website.js
 *.bat
 *.zip
 *.log
 .DS_Store
+node_modules/

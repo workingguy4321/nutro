@@ -1,10 +1,6 @@
-# Exclude Android APK binaries for now (will be uploaded after verification)
-downloads/
-*.apk
-downloads/*.apk
-
-# Local server and helper scripts
+# Local server, tests, and helper scripts
 server.js
+test_website.js
 *.bat
 *.zip
 .vercel/
