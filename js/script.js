@@ -781,4 +781,282 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   };
+
+  window.scrollToSection = function(id) {
+    if (window.switchView) window.switchView('view-home');
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 80);
+  };
+
+  // ========================================================
+  // 17. INTERACTIVE MACRO & CALORIE TARGET CALCULATOR ENGINE
+  // ========================================================
+  let calcGender = 'male';
+  let calcGoal = 'maintain'; // 'cut', 'maintain', 'bulk'
+
+  window.setCalcGender = function(gender, btn) {
+    calcGender = gender;
+    document.querySelectorAll('.gender-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    updateMacroCalc();
+  };
+
+  window.setCalcGoal = function(goal, btn) {
+    calcGoal = goal;
+    document.querySelectorAll('.goal-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    updateMacroCalc();
+  };
+
+  window.updateMacroCalc = function() {
+    const ageEl = document.getElementById('calcAge');
+    const heightEl = document.getElementById('calcHeight');
+    const weightEl = document.getElementById('calcWeight');
+    const activityEl = document.getElementById('calcActivity');
+
+    const age = parseFloat(ageEl ? ageEl.value : 25) || 25;
+    const height = parseFloat(heightEl ? heightEl.value : 175) || 175;
+    const weight = parseFloat(weightEl ? weightEl.value : 72) || 72;
+    const activityMult = parseFloat(activityEl ? activityEl.value : 1.375) || 1.375;
+
+    // 1. BMI Calculation
+    const heightM = height / 100;
+    const bmi = (weight / (heightM * heightM)).toFixed(1);
+
+    const bmiValEl = document.getElementById('calcBmiVal');
+    const bmiBadgeEl = document.getElementById('calcBmiBadge');
+    const gaugePinEl = document.getElementById('calcGaugePin');
+
+    if (bmiValEl) bmiValEl.textContent = bmi;
+
+    let bmiStatus = 'Normal';
+    let bmiColor = '#10B981';
+    let pinPct = 50;
+
+    if (bmi < 18.5) {
+      bmiStatus = 'Underweight';
+      bmiColor = '#38BDF8';
+      pinPct = Math.max(5, (bmi / 18.5) * 25);
+    } else if (bmi < 25) {
+      bmiStatus = 'Normal';
+      bmiColor = '#10B981';
+      pinPct = 25 + ((bmi - 18.5) / 6.5) * 25;
+    } else if (bmi < 30) {
+      bmiStatus = 'Overweight';
+      bmiColor = '#F59E0B';
+      pinPct = 50 + ((bmi - 25) / 5) * 25;
+    } else {
+      bmiStatus = 'Obese';
+      bmiColor = '#EF4444';
+      pinPct = Math.min(95, 75 + ((bmi - 30) / 10) * 20);
+    }
+
+    if (bmiBadgeEl) {
+      bmiBadgeEl.textContent = bmiStatus;
+      bmiBadgeEl.style.backgroundColor = bmiColor + '25';
+      bmiBadgeEl.style.color = bmiColor;
+      bmiBadgeEl.style.borderColor = bmiColor + '50';
+    }
+
+    if (gaugePinEl) {
+      gaugePinEl.style.left = pinPct + '%';
+    }
+
+    // 2. BMR & TDEE (Mifflin-St Jeor formula)
+    let bmr = 0;
+    if (calcGender === 'male') {
+      bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
+    } else {
+      bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+    }
+
+    let tdee = bmr * activityMult;
+    let targetCalories = tdee;
+
+    if (calcGoal === 'cut') {
+      targetCalories -= 450;
+    } else if (calcGoal === 'bulk') {
+      targetCalories += 350;
+    }
+    targetCalories = Math.round(targetCalories);
+
+    // 3. Macro Splits
+    // Protein: 2.0g/kg for cut/bulk, 1.8g/kg for maintain
+    const proteinFactor = (calcGoal === 'maintain') ? 1.8 : 2.0;
+    const proteinG = Math.round(weight * proteinFactor);
+    const fatG = Math.round((targetCalories * 0.25) / 9);
+    const carbG = Math.max(50, Math.round((targetCalories - (proteinG * 4) - (fatG * 9)) / 4));
+
+    // Water target: 35ml per kg
+    const waterL = (weight * 0.035).toFixed(1);
+    const waterGlasses = Math.round((weight * 35) / 250);
+
+    const setT = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+    setT('calcCaloriesTarget', targetCalories.toLocaleString() + ' kcal');
+    setT('calcProteinTarget', proteinG + 'g');
+    setT('calcCarbTarget', carbG + 'g');
+    setT('calcFatTarget', fatG + 'g');
+    setT('calcWaterTarget', waterL + 'L (' + waterGlasses + ' glasses)');
+  };
+
+  // Initialize Calculator on load
+  setTimeout(updateMacroCalc, 100);
+
+  // ========================================================
+  // 18. INTERACTIVE WIDGET STUDIO SWITCHER
+  // ========================================================
+  let studioWaterMl = 2250;
+
+  window.switchStudioWidget = function(idx, btn) {
+    document.querySelectorAll('.studio-tab-btn').forEach(b => {
+      b.className = 'btn btn-sm btn-glass studio-tab-btn';
+    });
+    if (btn) btn.className = 'btn btn-sm btn-primary studio-tab-btn';
+
+    for (let i = 0; i < 4; i++) {
+      const wEl = document.getElementById('studioWidget' + i);
+      if (wEl) {
+        if (i === idx) {
+          wEl.style.display = 'block';
+          wEl.style.animation = 'fadeInModal 0.25s ease forwards';
+        } else {
+          wEl.style.display = 'none';
+        }
+      }
+    }
+    if (window.lucide) lucide.createIcons();
+  };
+
+  window.studioAddWater = function() {
+    studioWaterMl += 250;
+    const waterTextEls = document.querySelectorAll('.studio-water-val');
+    waterTextEls.forEach(el => {
+      el.textContent = (studioWaterMl >= 1000 ? (studioWaterMl / 1000).toFixed(2) + 'L' : studioWaterMl + 'ml');
+    });
+
+    const barEl = document.getElementById('studioWaterBar');
+    if (barEl) {
+      const pct = Math.min(100, Math.round((studioWaterMl / 3000) * 100));
+      barEl.style.width = pct + '%';
+    }
+
+    if (window.showNutroToast) {
+      window.showNutroToast('+250ml Logged in Live Widget! Total: ' + (studioWaterMl / 1000).toFixed(2) + 'L', 'droplet');
+    }
+  };
+
+  // ========================================================
+  // 19. INTERACTIVE MEDICINE NOTIFICATION ACTION HANDLER
+  // ========================================================
+  window.handleNotifTake = function(btn) {
+    const card = btn.closest('.medicine-notif-preview');
+    if (card) {
+      card.style.borderColor = '#10B981';
+      card.style.background = 'rgba(16, 185, 129, 0.12)';
+      const body = card.querySelector('.medicine-notif-body');
+      if (body) {
+        body.innerHTML = `
+          <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(16, 185, 129, 0.25); display: flex; align-items: center; justify-content: center; color: #34D399;">
+            <i data-lucide="check-circle-2" style="width: 20px; height: 20px;"></i>
+          </div>
+          <div>
+            <div style="font-weight: 700; color: #FFF; font-size: 13.5px;">✓ Paracetamol 500mg Taken</div>
+            <div style="font-size: 11.5px; color: #34D399;">Logged at 08:02 AM • 100% Adherence Streak</div>
+          </div>
+        `;
+      }
+      const actions = card.querySelector('.medicine-notif-actions');
+      if (actions) {
+        actions.innerHTML = `<span style="font-size: 12px; color: #34D399; font-weight: 600; text-align: center; width: 100%;">Saved to local SQLite database</span>`;
+      }
+      if (window.lucide) lucide.createIcons();
+      if (window.showNutroToast) {
+        window.showNutroToast('Medicine adherence logged! Push notification action completed.', 'check-circle-2');
+      }
+    }
+  };
+
+  window.handleNotifSnooze = function(btn) {
+    const card = btn.closest('.medicine-notif-preview');
+    if (card) {
+      const headerTime = card.querySelector('.medicine-notif-header span:last-child');
+      if (headerTime) headerTime.textContent = '08:15 AM (Snoozed)';
+      if (window.showNutroToast) {
+        window.showNutroToast('Alarm snoozed for 15 minutes (AlarmManager scheduled).', 'clock');
+      }
+    }
+  };
+
+  // ========================================================
+  // 20. SREE AI CUSTOM QUERY INPUT HANDLER
+  // ========================================================
+  window.handleSreeCustomSend = function(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    const input = document.getElementById('sreeCustomInput');
+    if (!input) return;
+    const query = input.value.trim();
+    if (!query) return;
+
+    const waveBars = document.querySelectorAll('.soundwave-bar');
+    const bubble = document.getElementById('sreeSpeechText');
+    const badgeContainer = document.getElementById('sreeBadges');
+
+    waveBars.forEach(b => {
+      b.style.animationDuration = '0.4s';
+      b.style.background = 'linear-gradient(180deg, #38BDF8, #34D399)';
+    });
+
+    let simulatedReply = '';
+    let badges = [];
+
+    const qLower = query.toLowerCase();
+    if (qLower.includes('water') || qLower.includes('drank') || qLower.includes('glass')) {
+      simulatedReply = `“✨ SREE: I've logged your water intake to your daily hydration streak! You are maintaining an optimal hydration curve today. Keep your fluids steady!”`;
+      badges = ['💧 Hydration Logged', '🥛 SQLite Sync', '⚡ Daily Streak'];
+    } else if (qLower.includes('medicine') || qLower.includes('pill') || qLower.includes('tab') || qLower.includes('timing')) {
+      simulatedReply = `“✨ SREE: I've registered your medicine dosage schedule into your private Medicine Tracker. You'll receive high-priority alarms with interactive 'Take' and 'Snooze' notification triggers!”`;
+      badges = ['💊 Medicine Scheduled', '⏰ Alarm Configured', '🔔 Push Active'];
+    } else if (qLower.includes('protein') || qLower.includes('chicken') || qLower.includes('egg') || qLower.includes('paneer')) {
+      simulatedReply = `“✨ SREE: Excellent protein choice! Protein is essential for preserving lean muscle mass during metabolic recovery. I’ve logged your intake and recalculated your remaining daily macro split.”`;
+      badges = ['🍗 High Protein', '💪 Muscle Recovery', '📊 Macro Recalibrated'];
+    } else {
+      simulatedReply = `“✨ SREE: I analyzed your query: '${query}'. As your sovereign nutrition companion, I've checked your local SQLite profile trends. Keep fueling consistently with whole foods and hydration!”`;
+      badges = ['🧠 Gemini Intelligence', '🛡️ Local On-Device', '✨ SREE Active'];
+    }
+
+    if (bubble) {
+      bubble.style.opacity = '0.3';
+      setTimeout(() => {
+        bubble.innerText = simulatedReply;
+        bubble.style.opacity = '1';
+        if (badgeContainer) {
+          badgeContainer.innerHTML = badges.map(bg => 
+            `<span class="badge" style="background: rgba(167, 139, 250, 0.15); color: #C084FC; border: 1px solid rgba(167, 139, 250, 0.3); font-size: 11px;">${bg}</span>`
+          ).join('');
+        }
+        setTimeout(() => {
+          waveBars.forEach(b => {
+            b.style.animationDuration = '1.2s';
+            b.style.background = 'linear-gradient(180deg, #A78BFA, #06B6D4)';
+          });
+        }, 1200);
+      }, 200);
+    }
+
+    input.value = '';
+  };
+
+  // Sync aria-invalid with CSS :user-invalid state per modern-web-guidance
+  const syncAria = (el) => {
+    if (el && el.matches) {
+      el.setAttribute('aria-invalid', el.matches(':user-invalid') ? 'true' : 'false');
+    }
+  };
+  document.addEventListener('blur', (e) => syncAria(e.target), true);
+  document.addEventListener('input', (e) => {
+    if (e.target && e.target.hasAttribute && e.target.hasAttribute('aria-invalid')) syncAria(e.target);
+  });
+
 });

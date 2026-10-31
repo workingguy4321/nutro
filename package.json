@@ -1,0 +1,25 @@
+{
+  "name": "nutro-website",
+  "version": "1.0.0",
+  "description": "> **Next-Generation Nutrition Tracking & Health Intelligence Platform**   > Modern Web Showcase, Native Android Client & AI Analytics Suite.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/workingguy4321/nutro.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/workingguy4321/nutro/issues"
+  },
+  "homepage": "https://github.com/workingguy4321/nutro#readme",
+  "devDependencies": {
+    "playwright": "^1.64.1"
+  }
+}
