@@ -475,27 +475,32 @@ document.addEventListener('DOMContentLoaded', () => {
     drawParticles();
   }
 
-  // 13. Sree AI Spoken Nutrition Companion Simulator
+  // 13. Sree AI Spoken & Conversational Nutrition Companion Simulator
   const sreeResponses = [
     {
-      query: "Sree, what can I eat for high-protein dinner under 500 kcal?",
-      speech: "“I’ve analyzed your remaining macros. You have 42g of protein left for today. I recommend 200g of Grilled Lemon Herb Chicken Breast (330 kcal, 44g protein) paired with 150g of Steamed Broccoli Florets (52 kcal, 4g protein). Total: 382 kcal, 48g protein. It fits within your daily ring with 118 kcal to spare!”",
+      query: "💧 Sree, I drank 250ml water",
+      speech: "“✨ SREE: Logged 250ml of water to your daily tracker! You're now at 2,250ml / 3,000ml (75% completed). That's 9 glasses so far — keep up the fantastic hydration streak!”",
+      badges: ["💧 +250ml Logged", "🥛 75% Goal Reached", "⚡ Water Tracker Sync"]
+    },
+    {
+      query: "🥗 Sree, I ate 2 dosas and coconut chutney for lunch",
+      speech: "“✨ SREE: Recorded 2 crispy dosas with coconut chutney! That's ~380 kcal, 8g protein, 52g carbs, and 16g healthy fats. Your remaining balance for today is 720 kcal and 36g protein.”",
+      badges: ["🥗 380 kcal Logged", "🍗 8g Protein", "📊 Daily Rings Updated"]
+    },
+    {
+      query: "💊 Add Paracetamol 500mg with timing at 8:00 AM daily",
+      speech: "“✨ SREE: Added Paracetamol 500mg to your Medicine Tracker with daily 8:00 AM timing! I've scheduled your morning reminder with interactive 'Take' and 'Snooze' notification buttons.”",
+      badges: ["💊 Paracetamol 500mg", "⏰ 8:00 AM Daily Alarm", "🔔 Push Reminder Scheduled"]
+    },
+    {
+      query: "🔔 Turn on hydration notifications and reminders",
+      speech: "“✨ SREE: Hydration notifications and daily coaching alerts are now enabled! You'll receive gentle background reminders to drink water during your active hours (8:00 AM – 10:00 PM).”",
+      badges: ["🔔 Notifications Enabled", "💧 Hourly Reminders", "📱 System Alarm Set"]
+    },
+    {
+      query: "🍗 High-protein dinner recommendation under 500 kcal",
+      speech: "“✨ SREE: Based on your remaining macros (42g protein needed), I recommend 200g Grilled Lemon Herb Chicken Breast (330 kcal, 44g protein) with 150g Steamed Broccoli (52 kcal, 4g protein). Total: 382 kcal, 48g protein!”",
       badges: ["🍗 48g Protein", "⚡ 382 kcal", "🥦 High Fiber"]
-    },
-    {
-      query: "How does my luteal cycle phase affect my carb craving today?",
-      speech: "“Your body is currently in the late luteal phase, where basal metabolic rate naturally increases by 100–250 kcal/day while progesterone dips serotonin. I’ve automatically recalibrated your daily carb ceiling by +25g with complex low-glycemic options (like roasted sweet potato or rolled oats) to stabilize mood without metabolic crashes.”",
-      badges: ["🩸 Luteal Phase Day 22", "🍠 +25g Slow Carbs", "🧠 Serotonin Support"]
-    },
-    {
-      query: "Analyze my last 7 days of protein consistency.",
-      speech: "“Over the past 7 days, your protein adherence score is 94.2%! You hit an average of 158g/day versus your 160g target. Your highest compliance was on post-workout Tuesday (174g). Local SQLite trend logs show zero missing meals, and your hydration averaged 3.1 liters daily.”",
-      badges: ["📈 94.2% Adherence", "🔥 158g 7-Day Avg", "💧 3.1L Hydration"]
-    },
-    {
-      query: "Sree, give me my morning audio briefing.",
-      speech: "“Good morning! Today is Thursday. Yesterday you finished at 2,080 kcal with 162g of protein and hit your 10-glass water streak. Your resting metabolic recovery is primed. For breakfast, you have 650 kcal budgeted. Don't forget your morning hydration glass!”",
-      badges: ["🌅 Thursday Briefing", "🎯 Day Streak: 14", "🥛 Target: 3.2L"]
     }
   ];
 

@@ -1,18 +1,18 @@
 {
   "com.example.nutriai": {
-    "version_code": 1,
-    "version_name": "1.0",
+    "version_code": 2,
+    "version_name": "2.1",
     "apk_url": "https://nutro-eight.vercel.app/downloads/NUTRO_Plus.apk",
     "apk_mirror_url": "https://raw.githubusercontent.com/workingguy4321/nutro/main/nutro%20website/downloads/NUTRO_Plus.apk",
-    "release_notes": "✨ Upgraded Sree AI Chat, Weight Tracker Overhaul with BMI Gauge & 7-Day Chart, and Performance Optimizations!",
+    "release_notes": "✨ Restored Sree AI conversational assistant with natural voice/chat logging (water, food, medicine & notification controls) + 4 Modern Android Home Widgets + Interactive Medicine Schedule Tracker with quick push notifications!",
     "force_update": false
   },
   "com.example.nutriai.normal": {
-    "version_code": 1,
-    "version_name": "1.0",
+    "version_code": 2,
+    "version_name": "2.1",
     "apk_url": "https://nutro-eight.vercel.app/downloads/NUTRO_Normal.apk",
     "apk_mirror_url": "https://raw.githubusercontent.com/workingguy4321/nutro/main/nutro%20website/downloads/NUTRO_Normal.apk",
-    "release_notes": "✨ Performance improvements, UI polish, and stability enhancements.",
+    "release_notes": "✨ 4 Modern Android Home Screen Widgets, Medicine & Supplement Intake Tracker, streamlined workout routines, and performance optimizations.",
     "force_update": false
   }
 }
