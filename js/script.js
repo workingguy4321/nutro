@@ -315,9 +315,9 @@ document.addEventListener('DOMContentLoaded', () => {
     setW('barFat', m.fatW);
 
     document.querySelectorAll('.demo-meal-btn').forEach(b => {
-      b.className = 'btn btn-sm btn-glass demo-meal-btn';
+      b.classList.remove('active');
     });
-    if (btn) btn.className = 'btn btn-sm btn-primary demo-meal-btn';
+    if (btn) btn.classList.add('active');
   };
 
   // 9. Screenshots Gallery Selector
@@ -341,13 +341,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (titleEl) titleEl.innerText = item.title;
     if (subEl) subEl.innerText = item.subtitle;
     if (src && imgEl) {
-      imgEl.src = src;
+      imgEl.style.opacity = '0.4';
+      imgEl.style.transform = 'scale(0.98)';
+      imgEl.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+      setTimeout(() => {
+        imgEl.src = src;
+        imgEl.style.opacity = '1';
+        imgEl.style.transform = 'scale(1)';
+      }, 150);
     }
 
     document.querySelectorAll('.scr-btn').forEach(b => {
-      b.className = 'btn btn-sm btn-glass scr-btn';
+      b.classList.remove('active');
     });
-    if (btn) btn.className = 'btn btn-sm btn-primary scr-btn';
+    if (btn) btn.classList.add('active');
   };
 
   // 10. Lightbox Modal
@@ -516,9 +523,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.querySelectorAll('.sree-prompt-btn').forEach(b => {
-      b.className = 'btn btn-sm btn-glass sree-prompt-btn';
+      b.classList.remove('active');
     });
-    if (btn) btn.className = 'btn btn-sm btn-cyan sree-prompt-btn';
+    if (btn) btn.classList.add('active');
 
     if (bubble) {
       bubble.style.opacity = '0.3';
@@ -527,11 +534,14 @@ document.addEventListener('DOMContentLoaded', () => {
         bubble.innerText = item.speech;
         bubble.style.opacity = '1';
         bubble.style.transform = 'translateY(0)';
-        bubble.style.transition = 'all 0.35s ease';
+        bubble.style.transition = 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+        bubble.classList.remove('speech-animated');
+        void bubble.offsetWidth;
+        bubble.classList.add('speech-animated');
 
         if (badgeContainer) {
           badgeContainer.innerHTML = item.badges.map(bg => 
-            `<span class="badge" style="background: rgba(167, 139, 250, 0.15); color: #C084FC; border: 1px solid rgba(167, 139, 250, 0.3); font-size: 11px;">${bg}</span>`
+            `<span class="nav-tag nav-tag-blue">${bg}</span>`
           ).join('');
         }
 
@@ -911,16 +921,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.switchStudioWidget = function(idx, btn) {
     document.querySelectorAll('.studio-tab-btn').forEach(b => {
-      b.className = 'btn btn-sm btn-glass studio-tab-btn';
+      b.classList.remove('active');
     });
-    if (btn) btn.className = 'btn btn-sm btn-primary studio-tab-btn';
+    if (btn) btn.classList.add('active');
 
     for (let i = 0; i < 4; i++) {
       const wEl = document.getElementById('studioWidget' + i);
       if (wEl) {
         if (i === idx) {
           wEl.style.display = 'block';
-          wEl.style.animation = 'fadeInModal 0.25s ease forwards';
+          wEl.style.opacity = '0';
+          wEl.style.transform = 'translateY(6px) scale(0.99)';
+          wEl.style.transition = 'opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)';
+          requestAnimationFrame(() => {
+            wEl.style.opacity = '1';
+            wEl.style.transform = 'translateY(0) scale(1)';
+          });
         } else {
           wEl.style.display = 'none';
         }
@@ -1031,9 +1047,12 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         bubble.innerText = simulatedReply;
         bubble.style.opacity = '1';
+        bubble.classList.remove('speech-animated');
+        void bubble.offsetWidth;
+        bubble.classList.add('speech-animated');
         if (badgeContainer) {
           badgeContainer.innerHTML = badges.map(bg => 
-            `<span class="badge" style="background: rgba(167, 139, 250, 0.15); color: #C084FC; border: 1px solid rgba(167, 139, 250, 0.3); font-size: 11px;">${bg}</span>`
+            `<span class="nav-tag nav-tag-blue">${bg}</span>`
           ).join('');
         }
         setTimeout(() => {
