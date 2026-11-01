@@ -1,6 +1,6 @@
 {
   "com.example.nutriai": {
-    "version_code": 2,
+    "version_code": 1,
     "version_name": "2.1",
     "apk_url": "https://nutro-eight.vercel.app/downloads/NUTRO_Plus.apk",
     "apk_mirror_url": "https://raw.githubusercontent.com/workingguy4321/nutro/main/nutro%20website/downloads/NUTRO_Plus.apk",
@@ -8,7 +8,7 @@
     "force_update": false
   },
   "com.example.nutriai.normal": {
-    "version_code": 2,
+    "version_code": 1,
     "version_name": "2.1",
     "apk_url": "https://nutro-eight.vercel.app/downloads/NUTRO_Normal.apk",
     "apk_mirror_url": "https://raw.githubusercontent.com/workingguy4321/nutro/main/nutro%20website/downloads/NUTRO_Normal.apk",
