@@ -532,6 +532,9 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
 
   window.askSreeAi = function(index, btn) {
+    if (window.sreeLottieAnim) {
+      try { window.sreeLottieAnim.goToAndPlay(0, true); } catch(_) {}
+    }
     const item = sreeResponses[index];
     const waveBars = document.querySelectorAll('.soundwave-bar');
     const bubble = document.getElementById('sreeSpeechText');
@@ -1030,6 +1033,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // ========================================================
   window.handleSreeCustomSend = function(e) {
     if (e && e.preventDefault) e.preventDefault();
+    if (window.sreeLottieAnim) {
+      try { window.sreeLottieAnim.goToAndPlay(0, true); } catch(_) {}
+    }
     const input = document.getElementById('sreeCustomInput');
     if (!input) return;
     const query = input.value.trim();
@@ -1125,5 +1131,23 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('input', (e) => {
     if (e.target && e.target.hasAttribute && e.target.hasAttribute('aria-invalid')) syncAria(e.target);
   });
+
+  // ========================================================
+  // 21. SREE AI LOTTIE RUNTIME (ORIGINAL JSON ANIMATED ROBOT)
+  // ========================================================
+  const sreeBotContainer = document.getElementById('sreeAiLottieBot');
+  if (sreeBotContainer && window.lottie) {
+    try {
+      window.sreeLottieAnim = lottie.loadAnimation({
+        container: sreeBotContainer,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: 'assets/ai_chatbot.json'
+      });
+    } catch (err) {
+      console.warn('Sree Lottie initialization error:', err);
+    }
+  }
 
 });
