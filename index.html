@@ -20,11 +20,12 @@
 </head>
 <body>
 
-  <!-- DEEP AMBIENT PARALLAX ATMOSPHERE ORBS -->
+  <!-- DEEP AMBIENT PARALLAX ATMOSPHERE ORBS & GSAP CURSOR LIGHT -->
   <div class="depth-atmosphere" aria-hidden="true">
     <div class="depth-orb depth-orb-1"></div>
     <div class="depth-orb depth-orb-2"></div>
     <div class="depth-orb depth-orb-3"></div>
+    <div class="depth-orb depth-orb-cursor" id="ambientCursorLight"></div>
   </div>
 
   <!-- SPLIT 3-PIECE LINEAR ISLAND NAVBAR -->
@@ -161,27 +162,27 @@
       <!-- STATS METRIC STRIP -->
       <div class="stats-strip">
         <div class="stat-cell">
-          <div class="stat-number">0ms</div>
+          <div class="stat-number" data-target="0" data-suffix="ms">0ms</div>
           <div class="stat-label">Offline Latency</div>
         </div>
         <div class="stat-cell">
-          <div class="stat-number">100K+</div>
+          <div class="stat-number" data-target="100" data-suffix="K+">100K+</div>
           <div class="stat-label">Food Barcodes</div>
         </div>
         <div class="stat-cell">
-          <div class="stat-number">54.8 MB</div>
+          <div class="stat-number" data-target="54.8" data-suffix=" MB" data-decimals="1">54.8 MB</div>
           <div class="stat-label">Lean Package</div>
         </div>
         <div class="stat-cell">
-          <div class="stat-number">4 Widgets</div>
+          <div class="stat-number" data-target="4" data-suffix=" Widgets">4 Widgets</div>
           <div class="stat-label">Android Home</div>
         </div>
         <div class="stat-cell">
-          <div class="stat-number">100%</div>
+          <div class="stat-number" data-target="100" data-suffix="%">100%</div>
           <div class="stat-label">SQLite Local</div>
         </div>
         <div class="stat-cell">
-          <div class="stat-number">$0</div>
+          <div class="stat-number" data-target="0" data-prefix="$">$0</div>
           <div class="stat-label">Free Forever</div>
         </div>
       </div>
@@ -948,10 +949,16 @@
   <!-- TOAST -->
   <div id="nutroToast"></div>
 
+  <!-- GSAP 3 CORE & SCROLLTRIGGER PLUGIN (LOCAL FAST-LOAD WITH CDN FALLBACK) -->
+  <script src="js/gsap.min.js"></script>
+  <script>if (!window.gsap) { document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"><\/script>'); }</script>
+  <script src="js/ScrollTrigger.min.js"></script>
+  <script>if (!window.ScrollTrigger) { document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"><\/script>'); }</script>
+
   <!-- LOTTIE ANIMATION RUNTIME -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
 
   <!-- EXTERNAL JS -->
-  <script src="js/script.js?v=2.1.2"></script>
+  <script src="js/script.js?v=2.2.0"></script>
 </body>
 </html>

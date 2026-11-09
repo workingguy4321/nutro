@@ -1475,6 +1475,15 @@ input:user-valid {
   }
 }
 
+/* Disable competing CSS native scroll animations when GSAP ScrollTrigger is controlling elements */
+html.has-gsap .bento-card,
+html.has-gsap .step-card,
+html.has-gsap .stat-cell,
+html.has-gsap .widget-studio-minimal,
+html.has-gsap .compare-table-wrapper {
+  animation: none !important;
+}
+
 /* ==========================================================================
    5. DEEP PARALLAX ATMOSPHERE & MULTI-LAYER DEPTH (MODERN WEB GUIDANCE)
    ========================================================================== */
@@ -1522,6 +1531,23 @@ input:user-valid {
   height: 500px;
   background: radial-gradient(circle, #818CF8 0%, transparent 70%);
   animation: floatOrb3 22s ease-in-out infinite alternate;
+}
+
+/* 120 FPS Cursor-Following Ambient Light (GSAP quickTo) */
+.depth-orb-cursor {
+  top: 0;
+  left: 0;
+  width: 520px;
+  height: 520px;
+  margin-top: -260px;
+  margin-left: -260px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.18) 0%, rgba(5, 223, 133, 0.08) 40%, transparent 70%);
+  filter: blur(80px);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform;
+  transition: opacity 0.4s ease;
 }
 
 @keyframes floatOrb1 {

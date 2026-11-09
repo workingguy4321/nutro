@@ -9,6 +9,189 @@ document.addEventListener('DOMContentLoaded', () => {
     lucide.createIcons();
   }
 
+  // ========================================================
+  // GSAP 3 & SCROLLTRIGGER INTERACTIVE ANIMATION SUITE
+  // Apple/Linear-grade choreographed motion, 120fps magnetic cursor,
+  // dynamic scroll counters, and tactile Material You widget springs
+  // ========================================================
+  function initGsapEngine() {
+    if (!window.gsap) return;
+
+    if (window.ScrollTrigger) {
+      gsap.registerPlugin(ScrollTrigger);
+    }
+
+    document.documentElement.classList.add('has-gsap');
+
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      return;
+    }
+
+    // 1. GSAP Defaults
+    gsap.defaults({
+      ease: "power3.out",
+      duration: 0.85
+    });
+
+    // 2. 120 FPS Ambient Magnetic Cursor Glow Tracking via gsap.quickTo
+    const cursorLight = document.getElementById('ambientCursorLight');
+    if (cursorLight && window.matchMedia('(pointer: fine)').matches) {
+      const xTo = gsap.quickTo(cursorLight, "x", { duration: 0.5, ease: "power3" });
+      const yTo = gsap.quickTo(cursorLight, "y", { duration: 0.5, ease: "power3" });
+
+      window.addEventListener('mousemove', (e) => {
+        cursorLight.style.opacity = '1';
+        xTo(e.clientX);
+        yTo(e.clientY);
+      }, { passive: true });
+
+      window.addEventListener('mouseleave', () => {
+        cursorLight.style.opacity = '0';
+      });
+    }
+
+    // 3. Hero Entrance Timeline (Apple-Grade Choreography)
+    const heroTl = gsap.timeline({ defaults: { ease: "power3.out" } });
+    heroTl
+      .from('.nav-island', { y: -28, opacity: 0, stagger: 0.08, duration: 0.75 })
+      .from('.hero-pill-badge', { y: -16, opacity: 0, scale: 0.94, duration: 0.55, ease: "back.out(1.5)" }, "-=0.35")
+      .from('.hero-headline', { y: 24, opacity: 0, duration: 0.8 }, "-=0.25")
+      .from('.hero-subheadline', { y: 18, opacity: 0, duration: 0.7 }, "-=0.4")
+      .from('.hero-actions .btn', { y: 20, opacity: 0, stagger: 0.09, duration: 0.65, ease: "back.out(1.3)" }, "-=0.35")
+      .from('#hero-video', { y: 35, opacity: 0, scale: 0.97, duration: 0.95, ease: "power3.out" }, "-=0.5");
+
+    // 4. ScrollTrigger Sequences Across Converting Sections
+    if (window.ScrollTrigger) {
+      // 4a. Stats Metric Strip & Dynamic Counter Numbers
+      const statStrip = document.querySelector('.stats-strip');
+      if (statStrip) {
+        ScrollTrigger.create({
+          trigger: statStrip,
+          start: 'top 85%',
+          once: true,
+          onEnter: () => {
+            gsap.from('.stat-cell', {
+              y: 20,
+              opacity: 0,
+              stagger: 0.07,
+              duration: 0.7,
+              ease: 'power2.out'
+            });
+
+            // Dynamic Numeric Counters
+            document.querySelectorAll('.stat-number[data-target]').forEach(el => {
+              const target = parseFloat(el.getAttribute('data-target'));
+              const decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+              const prefix = el.getAttribute('data-prefix') || '';
+              const suffix = el.getAttribute('data-suffix') || '';
+              const obj = { val: 0 };
+              gsap.to(obj, {
+                val: target,
+                duration: 1.5,
+                ease: 'power2.out',
+                onUpdate: () => {
+                  el.textContent = prefix + (decimals > 0 ? obj.val.toFixed(decimals) : Math.round(obj.val)) + suffix;
+                }
+              });
+            });
+          }
+        });
+      }
+
+      // 4b. Two Editions Bento Grid
+      const bentoGrid = document.querySelector('.bento-grid');
+      if (bentoGrid) {
+        gsap.from(bentoGrid.querySelectorAll('.bento-card'), {
+          scrollTrigger: {
+            trigger: bentoGrid,
+            start: 'top 82%',
+            once: true
+          },
+          y: 38,
+          opacity: 0,
+          scale: 0.97,
+          stagger: 0.12,
+          duration: 0.85,
+          ease: 'power3.out'
+        });
+      }
+
+      // 4c. Android Home Widgets Studio
+      const widgetsSec = document.getElementById('widgets-section');
+      if (widgetsSec) {
+        const tabsEl = widgetsSec.querySelector('.studio-tabs');
+        if (tabsEl) {
+          gsap.from(widgetsSec.querySelectorAll('.studio-tab-btn'), {
+            scrollTrigger: {
+              trigger: tabsEl,
+              start: 'top 85%',
+              once: true
+            },
+            y: 15,
+            opacity: 0,
+            stagger: 0.08,
+            duration: 0.6,
+            ease: 'power2.out'
+          });
+        }
+
+        const previewCard = widgetsSec.querySelector('.studio-preview-card');
+        if (previewCard) {
+          gsap.from(previewCard, {
+            scrollTrigger: {
+              trigger: previewCard,
+              start: 'top 85%',
+              once: true
+            },
+            y: 35,
+            opacity: 0,
+            scale: 0.98,
+            duration: 0.85,
+            ease: 'power3.out'
+          });
+        }
+      }
+
+      // 4d. Calorie & Macro Calculator
+      const calcSec = document.getElementById('calculator-section');
+      if (calcSec) {
+        const calcCard = calcSec.querySelector('.bento-card') || calcSec;
+        gsap.from(calcCard, {
+          scrollTrigger: {
+            trigger: calcSec,
+            start: 'top 82%',
+            once: true
+          },
+          y: 35,
+          opacity: 0,
+          duration: 0.85,
+          ease: 'power3.out'
+        });
+      }
+
+      // 4e. 4-Step Sideload Guide
+      const stepsGrid = document.querySelector('.steps-grid');
+      if (stepsGrid) {
+        gsap.from(stepsGrid.querySelectorAll('.step-card'), {
+          scrollTrigger: {
+            trigger: stepsGrid,
+            start: 'top 85%',
+            once: true
+          },
+          y: 28,
+          opacity: 0,
+          stagger: 0.09,
+          duration: 0.75,
+          ease: 'power2.out'
+        });
+      }
+    }
+  }
+
+  // Initialize GSAP Suite immediately
+  initGsapEngine();
+
   // 2. Multi-View Routing System
   let activeViewId = null;
   window.switchView = function(targetViewId, pushToHistory = true) {
@@ -52,9 +235,10 @@ document.addEventListener('DOMContentLoaded', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if (window.lucide) lucide.createIcons();
 
-    // Trigger reveal animations inside the newly active view
+    // Trigger reveal animations and refresh ScrollTrigger inside the newly active view
     setTimeout(() => {
       revealInView(targetView);
+      if (window.ScrollTrigger) ScrollTrigger.refresh();
     }, 60);
   };
 
@@ -953,13 +1137,15 @@ document.addEventListener('DOMContentLoaded', () => {
       if (wEl) {
         if (i === idx) {
           wEl.style.display = 'block';
-          wEl.style.opacity = '0';
-          wEl.style.transform = 'translateY(6px) scale(0.99)';
-          wEl.style.transition = 'opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)';
-          requestAnimationFrame(() => {
+          if (window.gsap) {
+            gsap.fromTo(wEl,
+              { opacity: 0, y: 12, scale: 0.97 },
+              { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: "back.out(1.4)", clearProps: "transform" }
+            );
+          } else {
             wEl.style.opacity = '1';
             wEl.style.transform = 'translateY(0) scale(1)';
-          });
+          }
         } else {
           wEl.style.display = 'none';
         }

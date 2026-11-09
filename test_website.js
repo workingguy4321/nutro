@@ -80,6 +80,13 @@ async function runTestSuite() {
     const title = await page.title();
     assert('Page title is set correctly', title.includes('NUTRO'));
 
+    // Test GSAP Core and ScrollTrigger Plugin Verification
+    const hasGsap = await page.evaluate(() => typeof window.gsap !== 'undefined' && typeof window.ScrollTrigger !== 'undefined');
+    assert('GSAP 3 Core and ScrollTrigger plugin loaded and active', hasGsap);
+
+    const hasCursorLight = await page.$eval('#ambientCursorLight', el => !!el);
+    assert('120 FPS Ambient Magnetic Cursor follower element mounted', hasCursorLight);
+
     // Test Navigation: Free App View
     await page.click('button[data-view="view-free-app"]');
     await page.waitForTimeout(300);
